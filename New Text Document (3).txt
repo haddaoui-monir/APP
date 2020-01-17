@@ -1,0 +1,17 @@
+//DELETE
+	   List<Licence> licenceDB = new ArrayList<Licence>();
+		@DeleteMapping("/jpa/licences/{id}")
+		public ResponseEntity<Void> deleteLicence(@PathVariable Long id){
+			Licence licenceId = getLicence(id);
+			if(licenceId.getName() != null)
+				 licenceDB = getAllLicence();
+			       for(Licence licenceDB : licenceDB) {
+			    	   if(licenceDB.getClient() == licenceId.getClient()) {
+			    		     licenceDB.setName(licenceDB.getName());
+			    		   licenceRepository.save(licenceDB);
+			    		   break;
+			    	   }
+			       }
+			licenceRepository.deleteById(id);
+			return ResponseEntity.noContent().build();
+		}
